@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: crystal-lang/install-crystal@v1
+        with:
+          crystal: 1.21.1
+      - run: shards install
+      - run: crystal tool format --check src spec
+      - run: crystal run lib/ameba/bin/ameba.cr
+      - run: crystal spec
+        env:
+          KEMAL_ENV: test
+
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - run: docker build -t app .

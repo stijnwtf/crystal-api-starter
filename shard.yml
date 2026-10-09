@@ -1,0 +1,20 @@
+name: app
+version: 0.1.0
+
+targets:
+  app:
+    main: src/app.cr
+
+dependencies:
+  kemal:
+    github: kemalcr/kemal
+    version: ~> 1.14
+
+crystal: ">= 1.21.0"
+license: MIT
+
+development_dependencies:
+  spec-kemal:
+    github: kemalcr/spec-kemal
+  ameba:
+    github: crystal-ameba/ameba
